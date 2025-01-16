@@ -28,7 +28,7 @@ dataframes_with_names = [
 for df_name, df in dataframes_with_names:
     # Call the function with the DataFrame and its name
   print("hello")
-  sorted_correlations = process_and_analyze_dataframe(df, top_n=5,df_name=df_name)
+  sorted_correlations = process_and_analyze_dataframe(df, top_n=5,df_name=df_name,col_subject="Year")
   
 # Access the most correlated rows
   print(sorted_correlations.head())

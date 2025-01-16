@@ -26,8 +26,13 @@ def plot2(df, condition1, condition2,subject,col_subject):
     axes[1].legend()
 
     # Display the plots
+    
+    file_name = f"{subject} By {col_subject}.png"
+    plt.savefig(file_name, bbox_inches='tight')  # Save with tight layout
     plt.tight_layout()
     plt.show()
+
+    
 
 
 

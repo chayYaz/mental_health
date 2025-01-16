@@ -1,10 +1,10 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-def process_and_analyze_dataframe(df, top_n=5, verbose=True,df_name="df"):
+def process_and_analyze_dataframe(df, top_n=5, verbose=True,df_name="df",col_subject="col subject"):
     df = df.fillna(0)  # Replace NaNs with 0
     numerical_df = df.select_dtypes(include='number')
     
-    # Convert column names to numeric (assumes they represent years)
+
     numerical_columns = pd.to_numeric(numerical_df.columns, errors='coerce')
     
     # Check for NaNs in column names after conversion
@@ -19,11 +19,7 @@ def process_and_analyze_dataframe(df, top_n=5, verbose=True,df_name="df"):
         correlation = row_series.corr(pd.Series(numerical_columns, index=numerical_columns))
         correlations_with_columns.append(abs(correlation))  # Use absolute correlation
         
-        # if verbose:
-        #     print(f"Row idx data: {row.values}")
-        #     print(f"Numerical columns: {numerical_columns.values}")
-        #     print(f"Correlation: {correlation}")
-    
+
     # Convert correlations into a pandas Series
     correlations_with_columns = pd.Series(correlations_with_columns, index=numerical_df.index)
 
@@ -32,7 +28,7 @@ def process_and_analyze_dataframe(df, top_n=5, verbose=True,df_name="df"):
 
     # Output the most correlated rows
     if verbose:
-        print("Most correlated rows with the column indices (years):")
+        print("Most correlated rows with the column indices ",col_subject)
         print(sorted_correlations.head(top_n))
 
     # Plot the rows with the highest correlations
@@ -45,12 +41,16 @@ def process_and_analyze_dataframe(df, top_n=5, verbose=True,df_name="df"):
 
 
 
-    plt.xlabel('Year')
+    plt.xlabel(col_subject)
     plt.ylabel('Values')
 
     
     plt.title(f'Top Rows by Correlation with Column Indices ({df_name})')
     plt.legend()
+    file_name = f"{df_name} By {col_subject}.png"
+    plt.savefig(file_name, bbox_inches='tight')  # Save with tight layout
+    plt.tight_layout()
     plt.show()
+    
 
     return sorted_correlations
