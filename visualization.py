@@ -27,7 +27,7 @@ def plot2(df, condition1, condition2,subject,col_subject):
 
     # Display the plots
     
-    file_name = f"{subject} By {col_subject}.png"
+    file_name = f"{condition1} and {condition2} By {subject} and {col_subject}.png"
     plt.savefig(file_name, bbox_inches='tight')  # Save with tight layout
     plt.tight_layout()
     plt.show()
